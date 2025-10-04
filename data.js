@@ -18,7 +18,7 @@ I question everything. Not to be difficult, but because "we've always done it th
 Currently at 6sense, building data infrastructure for predictive B2B intelligence. Previously helped Flipkart prepare for their IPO with financial data systems, and architected multi-terabyte solutions at Fractal Analytics. Each experience taught me that simple, maintainable solutions beat complex, fragile ones every time.`,
 
     highlights: [
-        { label: 'Years Experience', value: '7+' },
+        { label: 'Years Experience', value: '6+' },
         { label: 'Projects Delivered', value: '15+' },
         { label: 'Data Processed', value: '2TB+/day' },
         { label: 'Cloud Cost Saved', value: '$15K/mo' }
@@ -58,7 +58,6 @@ const experiences = [
         description: [
             'Building and optimizing large-scale data pipelines for B2B intelligence platform',
             'Migrated from Spark batch processing to Apache Flink for real-time streaming, enabling sub-second latency',
-            'Implemented streaming architecture processing 50K+ events/second with exactly-once semantics',
             'Developed data infrastructure supporting predictive analytics for Fortune 500 enterprise clients',
             'Optimized query performance reducing latency by 60% through intelligent caching and indexing'
         ],
@@ -71,7 +70,7 @@ const experiences = [
         location: 'Bengaluru, Karnataka, India',
         description: [
             'Designed and maintained Accounting and Financial Reporting system for India\'s largest e-commerce platform',
-            'Played significant role in Flipkart India IPO preparation by enhancing finance reporting systems',
+            'Enhanced financial reporting systems to support business growth and operational excellence',
             'Developed Inventory Validations Automation Flow ensuring data consistency across 100M+ SKUs',
             'Built and maintained Inventory valuation platform processing 500GB+ daily using Spark and Elasticsearch',
             'Enabled automated report generation for Balance Sheet, Cash Flow, and Income Statements'
@@ -165,7 +164,7 @@ const expertise = [
         icon: 'fas fa-table',
         title: 'Data Warehousing',
         description: 'Data modeling, warehouse design, and optimization for analytical workloads',
-        tags: ['Data Modeling', 'Star Schema', 'Dimensional Modeling', 'SQL Optimization']
+        tags: ['Data Modeling', 'Star Schema', 'Dimensional Modeling', 'SQL Optimization', 'SingleStore']
     },
     {
         icon: 'fas fa-chart-bar',
@@ -179,7 +178,7 @@ const expertise = [
 const projects = [
     {
         title: 'Financial Reporting System',
-        description: 'Built automated financial reporting platform for Flipkart supporting IPO preparation. Processes 500GB+ daily data for real-time balance sheet, cash flow, and income statement generation.',
+        description: 'Built automated financial reporting platform for Flipkart. Processes 500GB+ daily data for real-time balance sheet, cash flow, and income statement generation.',
         icon: 'fas fa-file-invoice-dollar',
         technologies: ['Spark', 'Elasticsearch', 'Python', 'AWS'],
         github: null,
@@ -216,9 +215,9 @@ const blogPosts = [
     {
         title: 'Building Scalable Data Pipelines: Lessons from the Trenches',
         date: 'March 15, 2024',
-        excerpt: 'Five years in data engineering taught me that the best pipeline is the one that doesn\'t wake you up at 3 AM. Here\'s what actually works in production.',
+        excerpt: 'Six years in data engineering taught me that the best pipeline is the one that doesn\'t wake you up at 3 AM. Here\'s what actually works in production.',
         tags: ['Data Engineering', 'Spark', 'Best Practices'],
-        link: 'blog-scalable-pipelines.html',
+        link: 'blog/blog-scalable-pipelines.html',
         comingSoon: false
     },
     {
@@ -226,7 +225,7 @@ const blogPosts = [
         date: 'February 28, 2024',
         excerpt: 'In the real world, a working solution today beats a perfect solution next quarter. Here\'s why pragmatism wins in data engineering.',
         tags: ['Philosophy', 'Career', 'Engineering'],
-        link: 'blog-practical-over-perfect.html',
+        link: 'blog/blog-practical-over-perfect.html',
         comingSoon: false
     },
     {
@@ -234,7 +233,7 @@ const blogPosts = [
         date: 'January 20, 2025',
         excerpt: 'We migrated from Spark batch processing to Apache Flink streaming at 6sense. Here\'s why we made the switch and how we now process 50K+ events/second with sub-second latency.',
         tags: ['Flink', 'Spark', 'Streaming'],
-        link: 'blog-flink-vs-spark.html',
+        link: 'blog/blog-flink-vs-spark.html',
         comingSoon: false
     },
     {
@@ -242,7 +241,7 @@ const blogPosts = [
         date: 'December 10, 2024',
         excerpt: 'At Fractal Analytics, our Azure bill was spiraling out of control. Here\'s how we saved $15K monthly through smart optimization—no architecture overhaul required.',
         tags: ['AWS', 'Azure', 'Cost Optimization'],
-        link: 'blog-cloud-optimization.html',
+        link: 'blog/blog-cloud-optimization.html',
         comingSoon: false
     }
 ];

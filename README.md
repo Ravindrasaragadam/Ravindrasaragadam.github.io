@@ -1,173 +1,172 @@
-# Ravindra Saragadam - Portfolio Website
-
-A modern, responsive portfolio website built with pure HTML, CSS, and JavaScript. Designed for GitHub Pages deployment with a focus on performance, clean code, and visual appeal.
-
-## Features
-
-- **Dark Theme with Blue/Cyan Accents**: Modern color scheme optimized for readability (#0066cc, #00aaff, #00e5ff)
-- **Fully Responsive**: Works seamlessly across desktop, tablet, and mobile devices
-- **Animated Particle Background**: Eye-catching hero section with optimized interactive particles (50 particles for performance)
-- **Scroll Progress Bar**: Visual indicator showing reading progress at the top of the page
-- **Scroll to Top Button**: Convenient button that appears when scrolling down
-- **Smooth Scroll Animations**: Sections fade in as you scroll using Intersection Observer API
-- **Enhanced Hover Effects**: Shimmer animations on cards for better interactivity
-- **Mobile-Friendly Navigation**: Hamburger menu for smaller screens with smooth transitions
-- **Blog System**: 4 complete blog posts with clean, readable layouts
-- **Resume Download**: Direct PDF download functionality
-- **No Build Process Required**: Pure static files, perfect for GitHub Pages
-- **Performance Optimized**: Reduced particle count and optimized animations for smooth 60fps experience
-
-## Live Demo
-
-Visit the live site at: [https://ravindrasaragadam.github.io](https://ravindrasaragadam.github.io)
-
-## Project Structure
+# 🚀 Ravindra Saragadam | Data Engineer
 
 ```
-.
-├── index.html                          # Main portfolio page
-├── styles.css                          # All styling with CSS variables
-├── scripts.js                          # JavaScript for animations and interactions
-├── data.js                             # Content data (easy to update)
-├── Resume_V5.pdf                       # Downloadable resume
-├── blog-scalable-pipelines.html        # Blog: Building Scalable Data Pipelines
-├── blog-practical-over-perfect.html    # Blog: Practical Over Perfect Philosophy
-├── blog-flink-vs-spark.html            # Blog: Flink vs Spark Streaming
-├── blog-cloud-optimization.html        # Blog: Cloud Cost Optimization
-└── README.md                           # This file
+╔════════════════════════════════════════════════════════════════╗
+║  💻 DATA ENGINEER | ☁️ CLOUD ARCHITECT | 🔍 PROBLEM SOLVER    ║
+║  🏗️ PIPELINE BUILDER | 📊 INSIGHTS ENGINEER | ⚡ TECH INNOVATOR ║
+╚════════════════════════════════════════════════════════════════╝
 ```
 
-## Technologies Used
+## 🌟 **Professional Profile**
 
-- **HTML5**: Semantic markup
-- **CSS3**: Modern styling with Flexbox and Grid
-- **Vanilla JavaScript**: No frameworks or dependencies
-- **Google Fonts**: Poppins and Roboto
-- **Font Awesome**: Icon library
-- **Canvas API**: Particle animation background
-
-## Sections
-
-1. **Hero**: Animated intro with typing effect and key statistics
-2. **About**: Personal introduction with core strengths
-3. **Expertise**: Key technical areas with icons and tags
-4. **Experience**: Timeline view of professional work history
-5. **Projects**: Card-based layout of featured projects
-6. **Blog**: Grid of blog posts with clickable cards
-7. **Resume**: Professional summary with PDF download
-8. **Contact**: Simple contact information and social links
-
-## Customization
-
-### Updating Content
-
-All content is stored in `data.js` for easy updates:
-
-```javascript
-// Update personal info
-const profileData = {
-    name: 'Your Name',
-    title: 'Your Title',
-    // ... more fields
-};
-
-// Add/edit experience
-const experiences = [
-    {
-        company: 'Company Name',
-        role: 'Your Role',
-        // ... more fields
-    }
-];
+```
+⚡ Data Engineer with expertise in scalable data solutions
+🔥 Transforming complex data challenges into actionable insights
+🚀 Building robust systems that drive business decisions
+💡 Always optimizing: "How can we make this better?"
 ```
 
-### Changing Colors
-
-Colors are defined as CSS variables in `styles.css`:
-
-```css
-:root {
-    --primary-color: #00aaff;      /* Main blue */
-    --secondary-color: #0066cc;    /* Darker blue */
-    --accent-color: #00e5ff;       /* Cyan accent */
-    /* ... more colors */
-}
-```
-
-### Adding Blog Posts
-
-1. Create a new HTML file (e.g., `blog-your-post.html`)
-2. Copy the structure from existing blog posts
-3. Update content
-4. Add entry to `blogPosts` array in `data.js`:
-
-```javascript
-{
-    title: 'Your Blog Title',
-    date: 'Month Day, Year',
-    excerpt: 'Brief description...',
-    tags: ['Tag1', 'Tag2'],
-    link: 'blog-your-post.html',
-    comingSoon: false
-}
-```
-
-## Deployment to GitHub Pages
-
-1. **Push to GitHub**:
-   ```bash
-   git add .
-   git commit -m "Update portfolio"
-   git push origin main
-   ```
-
-2. **Enable GitHub Pages**:
-   - Go to repository Settings
-   - Navigate to "Pages" section
-   - Select "main" branch as source
-   - Click Save
-
-3. **Access your site**:
-   - Your site will be available at `https://yourusername.github.io`
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-
-## Local Development
-
-No build process required! Simply:
-
-1. Clone the repository
-2. Open `index.html` in your browser
-3. Make changes and refresh to see updates
-
-For a local server (optional):
-```bash
-# Python 3
-python -m http.server 8000
-
-# Then visit http://localhost:8000
-```
-
-## License
-
-© 2024 Ravindra Saragadam. All rights reserved.
-
-## Contributing
-
-This is a personal portfolio site, but feel free to fork it for your own use!
-
-## Contact
-
-- **Email**: ravindrasaragadam@gmail.com
-- **LinkedIn**: [linkedin.com/in/ravindrasaragadam](https://www.linkedin.com/in/ravindrasaragadam)
-- **GitHub**: [github.com/ravindrasaragadam](https://github.com/ravindrasaragadam)
+**Status**: `AVAILABLE` ⚡ | **Location**: `Bengaluru, India` 🏙️
+**Experience**: `6+ years` | **Focus**: `Big Data & Real-time Processing`
 
 ---
 
-Built with ❤️ using pure HTML, CSS, and JavaScript
+## 🛠️ **Technical Expertise**
+
+### **Stream Processing** ⚡
+```javascript
+Apache Flink + Kafka + Spark Streaming
+// Real-time data processing at 50K+ events/second
+```
+
+### **Big Data Frameworks** 🏗️
+```scala
+Spark + Hadoop + Hive + Presto
+// Processing terabytes daily with efficiency
+```
+
+### **Cloud Infrastructure** ☁️
+```bash
+AWS + Azure + S3 + Glue + EMR + Lambda
+// Optimized cloud solutions that scale
+```
+
+### **Programming Languages** 💻
+```python
+Python + SQL + Bash + Scala
+// Clean, maintainable code that delivers results
+```
+
+### **Search & Analytics** 🔍
+```elasticsearch
+Elasticsearch + Kibana + ELK Stack
+// Powerful search and analytics capabilities
+```
+
+### **Workflow Orchestration** ⚙️
+```airflow
+Apache Airflow + DAGs + ETL/ELT
+// Automated, reliable data pipelines
+```
+
+### **Data Warehousing** 🗃️
+```sql
+Data Modeling + Star Schema + SingleStore
+// Structured data solutions for complex analytics
+```
+
+### **Data Visualization** 📊
+```tableau
+Power BI + Tableau + Dashboards
+// Turning data into compelling visual stories
+```
+
+---
+
+## 🏆 **Professional Experience**
+
+### **6sense** (2022 → Present) 🏢
+- **Role**: Migrated from Spark batch to Flink streaming architecture
+- **Achievement**: 50K+ events/second processing with zero-downtime deployments
+- **Impact**: Real-time predictive analytics for enterprise clients
+
+### **Flipkart** (2021 → 2022) 🛒
+- **Role**: Built financial reporting systems for India's largest e-commerce platform
+- **Achievement**: Designed systems handling 500GB+ daily data processing
+- **Impact**: Enhanced operational efficiency for critical business functions
+
+### **Fractal Analytics** (2019 → 2021) 📈
+- **Role**: Architected data solutions for Fortune 500 clients
+- **Achievement**: Reduced cloud costs by $15K monthly through optimization
+- **Impact**: 2TB+ daily processing with 90% faster data transformations
+
+### **MAQ Software** (2018 → 2019) 🔧
+- **Role**: Automated business insights for Microsoft operations
+- **Achievement**: 80% reduction in reporting preparation time
+- **Impact**: Led 30+ customer sessions across 8+ countries
+
+---
+
+## 📊 **Key Metrics**
+
+```
+⚡ Projects Delivered: 15+
+📦 Data Processed: 2TB+/day
+💰 Cloud Cost Optimization: $15K/month
+🏆 Team Leadership: Cross-functional collaboration
+🔄 Technical Excellence: Batch to streaming migration
+```
+
+---
+
+## 🎯 **Professional Philosophy**
+
+> *"I'll take something practical that actually works over the perfect theoretical solution every time."*
+
+```
+🎯 Deliver working solutions, not just perfect theories
+🔍 Question processes to find better approaches
+⚡ Solve real business problems effectively
+🚀 Build scalable systems with practical foundations
+💡 Share knowledge to elevate team capabilities
+```
+
+---
+
+## 🔗 **Professional Connections**
+
+| Platform | Contact | Status |
+|----------|---------|---------|
+| 📧 **Email** | ravindrasaragadam@gmail.com | `ACTIVE` |
+| 💼 **LinkedIn** | [linkedin.com/in/ravindrasaragadam](https://www.linkedin.com/in/ravindrasaragadam) | `CONNECTED` |
+| 🐙 **GitHub** | [github.com/ravindrasaragadam](https://github.com/ravindrasaragadam) | `PROJECTS` |
+| 🌐 **Portfolio** | [ravindrasaragadam.github.io](https://ravindrasaragadam.github.io) | `LIVE` |
+
+---
+
+## 📁 **Project Structure**
+
+```
+🚀 Ravindra-Saragadam/
+├── 🏠 index.html              # Portfolio Homepage
+├── 🎨 styles.css             # Design System
+├── ⚡ scripts.js             # Interactive Features
+├── 📊 data.js               # Content Management
+├── 📄 assets/
+│   └── Resume_V5.pdf        # Professional Resume
+├── 📝 blog/                 # Technical Articles
+│   ├── scalable-pipelines   # Data Pipeline Architecture
+│   ├── practical-over-perfect # Engineering Philosophy
+│   ├── flink-vs-spark       # Technology Migration
+│   └── cloud-optimization   # Cost Optimization
+└── 📋 README.md             # Professional Profile
+```
+
+---
+
+## 🚨 **Let's Collaborate**
+
+```
+💬 Interested in data engineering challenges?
+🔍 Looking for someone who optimizes and innovates?
+⚡ Need scalable data infrastructure?
+🚀 Want a team player who delivers results?
+
+→ Connect: ravindrasaragadam@gmail.com
+```
+
+---
+
+**Crafted with expertise, dedication, and a passion for data-driven solutions.**
+
+*This is my professional digital profile. Let's connect and build something impactful together! 🚀*

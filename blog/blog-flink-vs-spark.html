@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <style>
         .blog-post {
             max-width: 800px;
@@ -170,7 +170,7 @@
 </head>
 <body>
     <article class="blog-post">
-        <a href="index.html#blog" class="blog-back">
+        <a href="../index.html#blog" class="blog-back">
             <i class="fas fa-arrow-left"></i> Back to Blog
         </a>
 
@@ -199,15 +199,15 @@
 
         <div class="blog-content">
             <p>
-                When I joined 6sense in early 2022, our B2B intelligence platform was processing data using Spark batch jobs. We'd ingest events, run batch transformations every 5-15 minutes, and update downstream systems. It worked. But there was a problem.
+                When I joined 6sense in early 2022, our B2B intelligence platform was processing data using Spark batch jobs. We'd run scheduled batch transformations throughout the day, aggregating events and updating downstream systems. It worked. But we had a critical problem.
             </p>
 
             <p>
-                Every time we needed to deploy a pipeline change, we had to pause all related pipelines. Why? Because Spark batch jobs needed a consistent state before committing changes. Any in-flight data could be lost or corrupted during deployment. This meant deployment windows, coordination overhead, and delayed features.
+                <strong>Stateful data processing across batch runs was becoming increasingly complex.</strong> We needed to maintain session state, user journey tracking, and complex event patterns across multiple batch runs. Spark's approach of processing data in complete batches meant we had to implement complex state management ourselves, leading to brittle and error-prone systems.
             </p>
 
             <p>
-                We needed true real-time processing with better state management. That's when we made the switch to Apache Flink. Today, we process over 50,000 events per second with sub-second latency, and we can deploy without pausing pipelines.
+                We needed a framework that could handle stateful stream processing natively, maintain state across deployments, and provide exactly-once semantics. That's when we made the switch to Apache Flink. Today, we process data with complex state management that would be nearly impossible with traditional batch processing.
             </p>
 
             <p>
@@ -231,32 +231,32 @@
             </p>
 
             <ul>
-                <li>Aggregating user events into session data (every 5 minutes)</li>
-                <li>Enriching incoming data with reference tables</li>
-                <li>Feeding processed events into Elasticsearch</li>
-                <li>Generating analytics for dashboards</li>
+                <li>Daily data aggregation and reporting (every 24 hours)</li>
+                <li>Complex business logic that required full dataset context</li>
+                <li>Historical data processing and analytics</li>
+                <li>Generating insights for business intelligence dashboards</li>
             </ul>
 
             <p>
-                It worked well for months. But as our event volume grew and product requirements evolved, pain points emerged.
+                It worked well for basic processing. But as our requirements evolved, pain points emerged around stateful processing.
             </p>
 
-            <h3>The Batch Processing Problem</h3>
+            <h3>The Stateful Processing Problem</h3>
 
             <p>
-                Our biggest challenge wasn't performance—it was <strong>deployment complexity</strong>:
+                Our biggest challenge was <strong>maintaining state across batch runs</strong>:
             </p>
 
             <ul>
-                <li><strong>State consistency</strong>: Before deploying changes, we had to ensure all batches completed successfully</li>
-                <li><strong>Pipeline dependencies</strong>: Multiple pipelines shared state. Updating one meant coordinating with others</li>
-                <li><strong>Deployment windows</strong>: We needed 15-30 minute windows where we'd pause pipelines, deploy, then resume</li>
-                <li><strong>Data latency</strong>: 5-15 minute processing intervals meant insights were always delayed</li>
-                <li><strong>Resource waste</strong>: Clusters sat idle between batch runs, but we couldn't scale down</li>
+                <li><strong>Session state management</strong>: Tracking user sessions across multiple batch runs was complex and error-prone</li>
+                <li><strong>Event pattern detection</strong>: Complex event processing required maintaining state between batches</li>
+                <li><strong>Data consistency</strong>: Ensuring state consistency when batch processing failed or was interrupted</li>
+                <li><strong>State recovery</strong>: Rebuilding state after failures required complex checkpoint and recovery logic</li>
+                <li><strong>Deployment challenges</strong>: Any code changes required careful state migration planning</li>
             </ul>
 
             <div class="highlight-box">
-                <strong>The Breaking Point:</strong> We wanted to implement real-time anomaly detection. With 5-minute batch intervals, we'd detect issues too late. Plus, every deployment meant coordinating across 8+ pipelines. We needed a better way.
+                <strong>The Breaking Point:</strong> We wanted to implement real-time user journey tracking and anomaly detection. With daily batch intervals, we'd lose critical state information. Plus, maintaining complex state across batch boundaries was becoming a maintenance nightmare. We needed a better approach for stateful processing.
             </div>
 
             <h2>Enter Apache Flink</h2>
@@ -417,15 +417,15 @@
             <h2>The Results at 6sense</h2>
 
             <p>
-                After migrating from Spark batch to Flink streaming:
+                After migrating from Spark batch to Flink for stateful processing:
             </p>
 
             <ul>
-                <li>Reduced average latency from 5-15 minutes to under 1 second</li>
-                <li>Eliminated deployment coordination—we can now deploy without pausing pipelines</li>
-                <li>Scaled to 50K+ events/second with predictable performance</li>
-                <li>Enabled real-time features that were impossible with batch processing</li>
-                <li>Reduced infrastructure costs by 15% through better resource utilization</li>
+                <li>Simplified session state management across time windows</li>
+                <li>Enabled real-time user journey tracking with persistent state</li>
+                <li>Implemented complex event pattern detection that maintains state across events</li>
+                <li>Reduced state recovery complexity from days of development to hours</li>
+                <li>Eliminated state consistency issues during deployments</li>
             </ul>
 
             <p>
@@ -446,11 +446,11 @@
             </p>
 
             <ul>
-                <li>Your latency requirements are measured in minutes or hours</li>
-                <li>You process data on a schedule (hourly, daily)</li>
+                <li>Your processing is primarily historical data analysis</li>
+                <li>You don't need to maintain state across processing runs</li>
                 <li>You already have Spark expertise in your team</li>
-                <li>Deployment complexity isn't a major concern</li>
-                <li>Your data volume is large but arrival rate is predictable</li>
+                <li>State consistency across deployments isn't a major concern</li>
+                <li>Your data processing is primarily schedule-based (daily, weekly)</li>
             </ul>
 
             <p>
@@ -458,9 +458,9 @@
             </p>
 
             <ul>
-                <li>You need true low-latency processing (seconds or sub-second)</li>
+                <li>You need persistent state management across time windows</li>
                 <li>You want zero-downtime deployments with stateful processing</li>
-                <li>You're doing complex stateful computations across time windows</li>
+                <li>You're doing complex event pattern detection</li>
                 <li>You need exactly-once processing semantics</li>
                 <li>You're willing to invest in learning a new framework</li>
             </ul>
@@ -506,7 +506,7 @@
         </div>
 
         <div style="text-align: center; margin-top: 3rem;">
-            <a href="index.html#blog" class="btn btn-primary">
+            <a href="../index.html#blog" class="btn btn-primary">
                 <i class="fas fa-arrow-left"></i> Back to All Posts
             </a>
         </div>
