@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flink vs Spark Streaming: When to Use What | Ravindra Saragadam</title>
+    <meta name="description" content="Moving from Spark to Flink at 6sense taught me that real-time isn't just about speed—it's about picking the right tool.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .blog-post {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 20px 50px;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .blog-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .blog-back:hover {
+            gap: 0.8rem;
+        }
+
+        .blog-post h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .blog-meta {
+            color: var(--text-secondary);
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .blog-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .blog-post-tags {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .blog-content {
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .blog-content h2 {
+            color: var(--text-primary);
+            font-size: 1.8rem;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(0, 170, 255, 0.2);
+        }
+
+        .blog-content h3 {
+            color: var(--text-primary);
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .blog-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-content ul, .blog-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.8rem;
+        }
+
+        .blog-content strong {
+            color: var(--primary-color);
+        }
+
+        .blog-content em {
+            color: var(--accent-color);
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-primary);
+        }
+
+        .blog-content code {
+            background: rgba(0, 170, 255, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--accent-color);
+        }
+
+        .highlight-box {
+            background: rgba(0, 170, 255, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            margin: 2rem 0;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: rgba(0, 170, 255, 0.2);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        @media (max-width: 640px) {
+            .blog-post h1 {
+                font-size: 2rem;
+            }
+            
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <article class="blog-post">
+        <a href="index.html#blog" class="blog-back">
+            <i class="fas fa-arrow-left"></i> Back to Blog
+        </a>
+
+        <header class="blog-header">
+            <h1>From Spark Batch to Flink Streaming: A Migration Story</h1>
+            <div class="blog-meta">
+                <span class="blog-meta-item">
+                    <i class="far fa-calendar"></i>
+                    January 20, 2025
+                </span>
+                <span class="blog-meta-item">
+                    <i class="far fa-clock"></i>
+                    10 min read
+                </span>
+                <span class="blog-meta-item">
+                    <i class="far fa-user"></i>
+                    Ravindra Saragadam
+                </span>
+            </div>
+            <div class="blog-post-tags">
+                <span class="tag">Flink</span>
+                <span class="tag">Spark</span>
+                <span class="tag">Streaming</span>
+            </div>
+        </header>
+
+        <div class="blog-content">
+            <p>
+                When I joined 6sense in early 2022, our B2B intelligence platform was processing data using Spark batch jobs. We'd ingest events, run batch transformations every 5-15 minutes, and update downstream systems. It worked. But there was a problem.
+            </p>
+
+            <p>
+                Every time we needed to deploy a pipeline change, we had to pause all related pipelines. Why? Because Spark batch jobs needed a consistent state before committing changes. Any in-flight data could be lost or corrupted during deployment. This meant deployment windows, coordination overhead, and delayed features.
+            </p>
+
+            <p>
+                We needed true real-time processing with better state management. That's when we made the switch to Apache Flink. Today, we process over 50,000 events per second with sub-second latency, and we can deploy without pausing pipelines.
+            </p>
+
+            <p>
+                Here's what I learned making that transition, and how to decide which tool is right for your use case.
+            </p>
+
+            <h2>The Real Difference (It's Not What You Think)</h2>
+
+            <p>
+                Most articles will tell you "Flink is true streaming, Spark is micro-batching." That's technically true, but it misses the point. The real question is: <em>What does that difference mean for your actual use case?</em>
+            </p>
+
+            <h3>Spark Batch: The Foundation</h3>
+
+            <p>
+                Spark batch processing is powerful. You write transformations, execute them on massive datasets, and get results. Simple, reliable, battle-tested.
+            </p>
+
+            <p>
+                At 6sense, we were using Spark batch for:
+            </p>
+
+            <ul>
+                <li>Aggregating user events into session data (every 5 minutes)</li>
+                <li>Enriching incoming data with reference tables</li>
+                <li>Feeding processed events into Elasticsearch</li>
+                <li>Generating analytics for dashboards</li>
+            </ul>
+
+            <p>
+                It worked well for months. But as our event volume grew and product requirements evolved, pain points emerged.
+            </p>
+
+            <h3>The Batch Processing Problem</h3>
+
+            <p>
+                Our biggest challenge wasn't performance—it was <strong>deployment complexity</strong>:
+            </p>
+
+            <ul>
+                <li><strong>State consistency</strong>: Before deploying changes, we had to ensure all batches completed successfully</li>
+                <li><strong>Pipeline dependencies</strong>: Multiple pipelines shared state. Updating one meant coordinating with others</li>
+                <li><strong>Deployment windows</strong>: We needed 15-30 minute windows where we'd pause pipelines, deploy, then resume</li>
+                <li><strong>Data latency</strong>: 5-15 minute processing intervals meant insights were always delayed</li>
+                <li><strong>Resource waste</strong>: Clusters sat idle between batch runs, but we couldn't scale down</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>The Breaking Point:</strong> We wanted to implement real-time anomaly detection. With 5-minute batch intervals, we'd detect issues too late. Plus, every deployment meant coordinating across 8+ pipelines. We needed a better way.
+            </div>
+
+            <h2>Enter Apache Flink</h2>
+
+            <p>
+                Flink is built from the ground up for stream processing. Not batching disguised as streaming—actual event-by-event processing.
+            </p>
+
+            <h3>What Made Flink Different</h3>
+
+            <p>
+                <strong>1. True Event Time Processing</strong>
+            </p>
+
+            <p>
+                Flink's event time handling is phenomenal. We could process late-arriving events correctly without complex workarounds. Watermarks gave us precise control over when to trigger computations.
+            </p>
+
+            <p>
+                <strong>2. State Management</strong>
+            </p>
+
+            <p>
+                Flink's state management is a game-changer. We maintain billions of state entries (tracking user sessions, intent signals, etc.) with minimal overhead. The state backend options (RocksDB for large state, heap for fast access) give you real flexibility.
+            </p>
+
+            <p>
+                <strong>3. Exactly-Once Semantics</strong>
+            </p>
+
+            <p>
+                Flink's two-phase commit protocol ensures exactly-once processing even across multiple sinks. No more worrying about duplicate events in downstream systems.
+            </p>
+
+            <p>
+                <strong>4. Backpressure Handling</strong>
+            </p>
+
+            <p>
+                When downstream systems slow down, Flink's automatic backpressure prevents data loss and reduces the need for over-provisioning.
+            </p>
+
+            <h2>The Migration Journey</h2>
+
+            <p>
+                Migrating from Spark to Flink wasn't trivial. Here's what we learned:
+            </p>
+
+            <h3>Week 1-2: Learning Curve</h3>
+
+            <p>
+                Flink's API is different. If you're coming from Spark, expect an adjustment period. The DataStream API takes a different approach than Spark's DataFrame API.
+            </p>
+
+            <p>
+                <strong>Pro tip:</strong> Start with Flink's Table API if you're comfortable with SQL. It's similar to Spark SQL and easier to learn.
+            </p>
+
+            <h3>Week 3-4: State Management Strategy</h3>
+
+            <p>
+                This is where Flink shines but also where it gets complex. We had to rethink how we manage state:
+            </p>
+
+            <ul>
+                <li>Which state backend to use? (We went with RocksDB for large state)</li>
+                <li>How to partition state effectively?</li>
+                <li>What's our checkpoint interval? (We settled on 30 seconds)</li>
+                <li>How to handle state schema evolution?</li>
+            </ul>
+
+            <h3>Week 5-6: Performance Tuning</h3>
+
+            <p>
+                Flink requires different tuning than Spark:
+            </p>
+
+            <ul>
+                <li><strong>Parallelism</strong>: We used 120 parallel instances for our main jobs</li>
+                <li><strong>Network buffers</strong>: Increased to handle high throughput</li>
+                <li><strong>Managed memory</strong>: Tuned for RocksDB state backend</li>
+                <li><strong>Checkpointing</strong>: Found the sweet spot between frequency and overhead</li>
+            </ul>
+
+            <h2>Real-World Comparison</h2>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>Aspect</th>
+                    <th>Apache Flink</th>
+                    <th>Spark Streaming</th>
+                </tr>
+                <tr>
+                    <td>Processing Model</td>
+                    <td>True streaming (event-by-event)</td>
+                    <td>Micro-batching</td>
+                </tr>
+                <tr>
+                    <td>Latency</td>
+                    <td>Milliseconds</td>
+                    <td>Seconds</td>
+                </tr>
+                <tr>
+                    <td>State Management</td>
+                    <td>Excellent (built-in RocksDB)</td>
+                    <td>Good (but can be expensive)</td>
+                </tr>
+                <tr>
+                    <td>Learning Curve</td>
+                    <td>Steeper</td>
+                    <td>Gentler (if you know Spark)</td>
+                </tr>
+                <tr>
+                    <td>Ecosystem</td>
+                    <td>Growing but smaller</td>
+                    <td>Massive (entire Spark ecosystem)</td>
+                </tr>
+                <tr>
+                    <td>Exactly-Once</td>
+                    <td>Native support</td>
+                    <td>Requires careful setup</td>
+                </tr>
+                <tr>
+                    <td>Complex Event Processing</td>
+                    <td>Excellent (CEP library)</td>
+                    <td>Possible but harder</td>
+                </tr>
+            </table>
+
+            <h2>When to Use Spark Streaming</h2>
+
+            <p>
+                Don't get me wrong—Spark Streaming is still an excellent choice for many scenarios:
+            </p>
+
+            <ul>
+                <li><strong>Your latency SLA is 5+ seconds</strong>: No need for the complexity of Flink</li>
+                <li><strong>You already use Spark for batch</strong>: Code reuse and unified architecture are valuable</li>
+                <li><strong>Simple transformations and aggregations</strong>: Spark's SQL-like API makes this easy</li>
+                <li><strong>Team expertise</strong>: If your team knows Spark well, the productivity gain matters</li>
+                <li><strong>Integration requirements</strong>: Spark's ecosystem is bigger—more connectors, more libraries</li>
+            </ul>
+
+            <h2>When to Use Flink</h2>
+
+            <p>
+                We chose Flink because:
+            </p>
+
+            <ul>
+                <li><strong>Sub-second latency requirements</strong>: Real-time matters for our use case</li>
+                <li><strong>Complex stateful computations</strong>: User session tracking, pattern detection, etc.</li>
+                <li><strong>High throughput with low latency</strong>: We need both, not one or the other</li>
+                <li><strong>Event time processing</strong>: Handling out-of-order events correctly is critical</li>
+                <li><strong>Complex event processing</strong>: Pattern matching and sequence detection</li>
+            </ul>
+
+            <h2>The Results at 6sense</h2>
+
+            <p>
+                After migrating from Spark batch to Flink streaming:
+            </p>
+
+            <ul>
+                <li>Reduced average latency from 5-15 minutes to under 1 second</li>
+                <li>Eliminated deployment coordination—we can now deploy without pausing pipelines</li>
+                <li>Scaled to 50K+ events/second with predictable performance</li>
+                <li>Enabled real-time features that were impossible with batch processing</li>
+                <li>Reduced infrastructure costs by 15% through better resource utilization</li>
+            </ul>
+
+            <p>
+                But it wasn't all wins. We also:
+            </p>
+
+            <ul>
+                <li>Spent 6 weeks on the migration and learning curve</li>
+                <li>Had to build custom monitoring and alerting for Flink-specific metrics</li>
+                <li>Invested in training the team on Flink's concepts</li>
+                <li>Dealt with a smaller community and fewer Stack Overflow answers</li>
+            </ul>
+
+            <h2>My Recommendation</h2>
+
+            <p>
+                <strong>Start with Spark Batch if:</strong>
+            </p>
+
+            <ul>
+                <li>Your latency requirements are measured in minutes or hours</li>
+                <li>You process data on a schedule (hourly, daily)</li>
+                <li>You already have Spark expertise in your team</li>
+                <li>Deployment complexity isn't a major concern</li>
+                <li>Your data volume is large but arrival rate is predictable</li>
+            </ul>
+
+            <p>
+                <strong>Choose Flink Streaming if:</strong>
+            </p>
+
+            <ul>
+                <li>You need true low-latency processing (seconds or sub-second)</li>
+                <li>You want zero-downtime deployments with stateful processing</li>
+                <li>You're doing complex stateful computations across time windows</li>
+                <li>You need exactly-once processing semantics</li>
+                <li>You're willing to invest in learning a new framework</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>The Truth:</strong> Both tools are excellent. Flink isn't "better" than Spark Streaming—it's different. The question isn't which is superior, but which better matches your requirements, constraints, and team capabilities.
+            </div>
+
+            <h2>Final Thoughts</h2>
+
+            <p>
+                The move to Flink was the right choice for 6sense. But it wasn't an easy choice, and it wasn't cheap in terms of time and effort.
+            </p>
+
+            <p>
+                If I were starting a new streaming project today, I'd ask myself:
+            </p>
+
+            <ol>
+                <li>What's my actual latency requirement? (Be honest—do you really need sub-second?)</li>
+                <li>How complex is my state management?</li>
+                <li>What does my team already know?</li>
+                <li>What's the cost of being wrong? (Can I migrate later if needed?)</li>
+            </ol>
+
+            <p>
+                Remember: <em>The best streaming framework is the one that solves your problem without creating new ones.</em>
+            </p>
+
+            <p>
+                Sometimes that's Flink. Sometimes that's Spark. Sometimes it's neither, and you should use Kafka Streams or even plain old batch processing with a good scheduler.
+            </p>
+
+            <blockquote>
+                Technology choices should be driven by requirements, not by what's trendy on Hacker News.
+            </blockquote>
+
+            <hr style="border: 0; border-top: 1px solid rgba(0, 170, 255, 0.2); margin: 3rem 0;">
+
+            <p style="font-style: italic; color: var(--text-secondary);">
+                <strong>About the author:</strong> Ravindra is a Data Engineer at 6sense where he builds and maintains streaming infrastructure processing 100K+ events/second. Previously at Flipkart and Fractal Analytics. He's made enough bad technology choices to hopefully help you avoid making the same ones.
+            </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="index.html#blog" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i> Back to All Posts
+            </a>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span class="year">2025</span> Ravindra Saragadam. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

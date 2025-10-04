@@ -1,30 +1,229 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ravindra Saragadam - Data Engineer | AWS, Spark, Big Data Specialist</title>
-    <meta name="description" content="Data Engineer at 6sense with 5+ years experience in building scalable data pipelines. Previously at Flipkart and Fractal Analytics. Expert in AWS, Spark, Flink, and cloud data solutions." />
-    <meta name="keywords" content="Data Engineer, Big Data, AWS, Apache Spark, Flink, Cloud Computing, Ravindra Saragadam, 6sense, Flipkart, Data Pipeline" />
-    <meta name="author" content="Ravindra Saragadam" />
+    <meta name="description" content="Data Engineer at 6sense with 5+ years experience in building scalable data pipelines. Previously at Flipkart and Fractal Analytics. Expert in AWS, Spark, Flink, and cloud data solutions.">
+    <meta name="keywords" content="Data Engineer, Big Data, AWS, Apache Spark, Flink, Cloud Computing, Ravindra Saragadam, 6sense, Flipkart, Data Pipeline">
+    <meta name="author" content="Ravindra Saragadam">
 
-    <meta property="og:title" content="Ravindra Saragadam - Data Engineer | AWS, Spark, Big Data" />
-    <meta property="og:description" content="Data Engineer at 6sense specializing in scalable data solutions. 5+ years experience with AWS, Spark, Flink. Previously at Flipkart & Fractal Analytics." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ravindrasaragadam.github.io" />
-    <meta property="og:image" content="https://ravindrasaragadam.github.io/og-image.jpg" />
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Ravindra Saragadam - Data Engineer | AWS, Spark, Big Data">
+    <meta property="og:description" content="Data Engineer at 6sense specializing in scalable data solutions. 5+ years experience with AWS, Spark, Flink.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ravindrasaragadam.github.io">
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Ravindra Saragadam - Data Engineer" />
-    <meta name="twitter:description" content="Data Engineer at 6sense | AWS, Spark, Big Data Specialist | Building scalable data solutions" />
-    <meta name="twitter:image" content="https://ravindrasaragadam.github.io/og-image.jpg" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
 
-    <link rel="canonical" href="https://ravindrasaragadam.github.io" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="#home">Ravindra Saragadam</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#expertise" class="nav-link">Expertise</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#blog" class="nav-link">Blog</a></li>
+                <li><a href="#resume" class="nav-link">Resume</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <canvas id="particleCanvas"></canvas>
+        <div class="hero-content">
+            <div class="hero-text animate-fade-in">
+                <p class="hero-greeting">Hello, I'm</p>
+                <h1 class="hero-name">Ravindra Saragadam</h1>
+                <h2 class="hero-title">
+                    <span id="typingText"></span>
+                    <span class="cursor">|</span>
+                </h2>
+                <p class="hero-description">
+                    Currently building scalable data solutions at <span class="highlight">6sense</span>.<br>
+                    Previously at <span class="highlight">Flipkart</span> and <span class="highlight">Fractal Analytics</span>.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#about" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+            
+            <div class="hero-stats" id="heroStats">
+                <!-- Stats will be loaded from data.js -->
+            </div>
+            
+            <div class="hero-social">
+                <a href="https://www.linkedin.com/in/ravindrasaragadam" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/ravindrasaragadam" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:ravindrasaragadam@gmail.com" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+        <a href="#about" class="scroll-down">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text" id="aboutText">
+                    <!-- Content will be loaded from data.js -->
+                </div>
+                <div class="about-strengths" id="aboutStrengths">
+                    <!-- Strengths will be loaded from data.js -->
+                </div>
+            </div>
+            <div class="about-quote">
+                <i class="fas fa-quote-left quote-icon"></i>
+                <p>"I'll take something practical that actually works over the perfect theoretical solution every time."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">Core Expertise</h2>
+            <div class="expertise-grid" id="expertiseGrid">
+                <!-- Expertise items will be loaded from data.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="timeline" id="timeline">
+                <!-- Timeline items will be loaded from data.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid" id="projectsGrid">
+                <!-- Projects will be loaded from data.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="section">
+        <div class="container">
+            <h2 class="section-title">Blog & Insights</h2>
+            <p class="section-subtitle">Sharing knowledge and experiences from the data engineering world</p>
+            <div class="blog-grid" id="blogGrid">
+                <!-- Blog posts will be loaded from data.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">Resume</h2>
+            <p class="section-subtitle">Download my professional resume</p>
+            <div class="resume-content">
+                <div class="resume-overview">
+                    <h3>Professional Summary</h3>
+                    <p>Data Engineer with 5+ years of experience building scalable data pipelines and infrastructure for Fortune 500 companies. Expertise in AWS, Apache Spark, Flink, and real-time data processing. Proven track record of delivering high-impact solutions with $10B+ revenue impact.</p>
+                </div>
+                <div class="resume-download">
+                    <a href="Resume_V5.pdf" download class="download-card">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="download-info">
+                            <h4>Download PDF</h4>
+                            <p>Standard format for applications</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">Feel free to reach out for collaborations or just a friendly chat</p>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <a href="mailto:ravindrasaragadam@gmail.com">ravindrasaragadam@gmail.com</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Location</h3>
+                    <p>Bengaluru, Karnataka, India</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-link"></i>
+                    <h3>Connect</h3>
+                    <div class="contact-social">
+                        <a href="https://www.linkedin.com/in/ravindrasaragadam" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/ravindrasaragadam" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span class="year">2025</span> Ravindra Saragadam. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="scripts.js"></script>
+</body>
 </html>

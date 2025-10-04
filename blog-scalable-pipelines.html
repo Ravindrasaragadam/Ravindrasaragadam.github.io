@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Scalable Data Pipelines: Lessons from the Trenches | Ravindra Saragadam</title>
+    <meta name="description" content="Five years in data engineering taught me that the best pipeline is the one that doesn't wake you up at 3 AM.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .blog-post {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 20px 50px;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .blog-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .blog-back:hover {
+            gap: 0.8rem;
+        }
+
+        .blog-post h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .blog-meta {
+            color: var(--text-secondary);
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .blog-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .blog-post-tags {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .blog-content {
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .blog-content h2 {
+            color: var(--text-primary);
+            font-size: 1.8rem;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(0, 170, 255, 0.2);
+        }
+
+        .blog-content h3 {
+            color: var(--text-primary);
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .blog-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-content ul, .blog-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.8rem;
+        }
+
+        .blog-content strong {
+            color: var(--primary-color);
+        }
+
+        .blog-content em {
+            color: var(--accent-color);
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-primary);
+        }
+
+        .blog-content code {
+            background: rgba(0, 170, 255, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--accent-color);
+        }
+
+        .highlight-box {
+            background: rgba(0, 170, 255, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 640px) {
+            .blog-post h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <article class="blog-post">
+        <a href="index.html#blog" class="blog-back">
+            <i class="fas fa-arrow-left"></i> Back to Blog
+        </a>
+
+        <header class="blog-header">
+            <h1>Building Scalable Data Pipelines: Lessons from the Trenches</h1>
+            <div class="blog-meta">
+                <span class="blog-meta-item">
+                    <i class="far fa-calendar"></i>
+                    March 15, 2024
+                </span>
+                <span class="blog-meta-item">
+                    <i class="far fa-clock"></i>
+                    8 min read
+                </span>
+                <span class="blog-meta-item">
+                    <i class="far fa-user"></i>
+                    Ravindra Saragadam
+                </span>
+            </div>
+            <div class="blog-post-tags">
+                <span class="tag">Data Engineering</span>
+                <span class="tag">Apache Spark</span>
+                <span class="tag">Best Practices</span>
+            </div>
+        </header>
+
+        <div class="blog-content">
+            <p>
+                Five years into data engineering, I've learned one fundamental truth: <strong>the best data pipeline is the one that doesn't wake you up at 3 AM</strong>. Not the one with the fanciest technology stack. Not the one that impresses other engineers. The one that just works.
+            </p>
+
+            <p>
+                Let me share what I've learned from processing terabytes of data daily, supporting $10B+ in revenue, and yes, occasionally getting those 3 AM calls.
+            </p>
+
+            <h2>1. Start With Why, Not How</h2>
+
+            <p>
+                Early in my career at Fractal Analytics, I built a beautiful data pipeline using the latest streaming technology. It was elegant, performant, and completely unnecessary. The batch processing we were replacing ran once a day, and the business checked reports once a week.
+            </p>
+
+            <div class="highlight-box">
+                <strong>The Lesson:</strong> Before choosing your tech stack, understand the business requirement. Ask yourself:
+                <ul>
+                    <li>How fresh does the data need to be? Real-time? Hourly? Daily?</li>
+                    <li>What's the actual impact if the pipeline fails?</li>
+                    <li>Who's going to maintain this when you're not around?</li>
+                </ul>
+            </div>
+
+            <p>
+                At 6sense, we process data in real-time because minutes matter for B2B intelligence. At Flipkart, financial reports needed to be perfect more than they needed to be fast. <em>Context is everything</em>.
+            </p>
+
+            <h2>2. Monitoring Is Not Optional</h2>
+
+            <p>
+                You know what's worse than a broken pipeline? A broken pipeline that you don't know is broken until someone from finance calls asking where the revenue reports are.
+            </p>
+
+            <p>
+                When I was working on Flipkart's financial reporting system—a system handling $6-10B in yearly revenue—we learned this the hard way. Now, every pipeline I build has:
+            </p>
+
+            <ul>
+                <li><strong>Data quality checks at every stage</strong>: Schema validation, null checks, range validation</li>
+                <li><strong>Volume monitoring</strong>: Alert if today's data is 20% different from yesterday</li>
+                <li><strong>Freshness tracking</strong>: Know immediately if data stops flowing</li>
+                <li><strong>Business metric validation</strong>: Does the total revenue number make sense?</li>
+            </ul>
+
+            <blockquote>
+                "You can't improve what you don't measure, and you can't fix what you don't monitor."
+            </blockquote>
+
+            <h2>3. Idempotency Saves Lives</h2>
+
+            <p>
+                Make your pipelines idempotent. Seriously. I cannot stress this enough.
+            </p>
+
+            <p>
+                An idempotent pipeline produces the same result whether you run it once or a hundred times. This single principle has saved me countless hours of debugging and data cleanup.
+            </p>
+
+            <p>
+                Here's why it matters: Pipelines fail. Networks hiccup. Servers restart. When (not if) your pipeline fails halfway through, you should be able to rerun it without creating duplicate records or corrupting data.
+            </p>
+
+            <div class="highlight-box">
+                <strong>Practical Tips:</strong>
+                <ul>
+                    <li>Use partition overwrite instead of append when possible</li>
+                    <li>Include unique identifiers and timestamps in your data</li>
+                    <li>Design for retries from the beginning, not as an afterthought</li>
+                </ul>
+            </div>
+
+            <h2>4. Optimize for Readability, Then Performance</h2>
+
+            <p>
+                I once inherited a Spark job that ran in 30 minutes but took 3 days to understand. We rewrote it in a clearer way that took 45 minutes to run but 30 minutes to understand. The business was thrilled.
+            </p>
+
+            <p>
+                Why? Because:
+            </p>
+
+            <ul>
+                <li>The original developer had left</li>
+                <li>Requirements changed every quarter</li>
+                <li>New team members needed to contribute</li>
+                <li>45 minutes was still well within the acceptable window</li>
+            </ul>
+
+            <p>
+                Optimize for performance when you need to, not because you can. Your future self (or the next engineer) will thank you.
+            </p>
+
+            <h2>5. Schema Evolution Is Your Friend</h2>
+
+            <p>
+                At Fractal, we built a customer journey tracking system powering 25+ dashboards. The schema changed. A lot. We learned to embrace it rather than fight it.
+            </p>
+
+            <p>
+                Use schema evolution features in your data formats (Parquet, Avro, Delta Lake). Make adding new fields easy and safe. Default values are your friends. Breaking changes should require extra approval and communication.
+            </p>
+
+            <h2>6. Test in Production (But Safely)</h2>
+
+            <p>
+                Controversial opinion: You haven't really tested your pipeline until it runs on production data at production scale.
+            </p>
+
+            <p>
+                That doesn't mean YOLO-ing changes to prod. It means:
+            </p>
+
+            <ul>
+                <li>Build parallel pipelines for major changes</li>
+                <li>Compare outputs between old and new implementations</li>
+                <li>Have rollback plans that actually work</li>
+                <li>Use feature flags to gradually roll out changes</li>
+            </ul>
+
+            <p>
+                When we revamped the financial reporting process for 43 projects at Fractal, we ran both old and new pipelines in parallel for a month. The confidence we gained was worth the extra compute cost.
+            </p>
+
+            <h2>7. Document the Why, Not Just the What</h2>
+
+            <p>
+                Code comments that say <code>// Filter the data</code> are useless. We can see you're filtering data.
+            </p>
+
+            <p>
+                Better: <code>// Excluding test transactions (flagged by finance team) to match monthly report definition</code>
+            </p>
+
+            <p>
+                Future you will want to know <strong>why</strong> this filtering logic exists when someone asks to change it.
+            </p>
+
+            <h2>The Real Secret</h2>
+
+            <p>
+                After all these lessons, here's what I've realized: <strong>The best data engineers aren't the ones who know every technology. They're the ones who ask the right questions.</strong>
+            </p>
+
+            <ul>
+                <li>What problem are we actually solving?</li>
+                <li>What's the simplest solution that could work?</li>
+                <li>How will we know if this is working?</li>
+                <li>What happens when (not if) this fails?</li>
+            </ul>
+
+            <p>
+                Technology changes. Spark today, something else tomorrow. But these questions? They're timeless.
+            </p>
+
+            <h2>Final Thoughts</h2>
+
+            <p>
+                Building scalable data pipelines isn't about using the coolest technology or writing the most clever code. It's about understanding the problem, choosing appropriate solutions, and building systems that people can actually maintain.
+            </p>
+
+            <p>
+                Some of my best work has been the simplest code. Some of my worst has been the most complex. The difference? Understanding what actually mattered to the business.
+            </p>
+
+            <p>
+                So next time you're designing a pipeline, ask yourself: <em>Will this wake me up at 3 AM?</em> If the answer is yes, you might want to rethink your approach.
+            </p>
+
+            <blockquote>
+                Because the best pipeline is the boring one that just works. Every. Single. Time.
+            </blockquote>
+
+            <hr style="border: 0; border-top: 1px solid rgba(0, 170, 255, 0.2); margin: 3rem 0;">
+
+            <p style="font-style: italic; color: var(--text-secondary);">
+                <strong>About the author:</strong> Ravindra is a Data Engineer with 5+ years of experience building scalable data infrastructure at companies like 6sense, Flipkart, and Fractal Analytics. He's passionate about practical engineering solutions and sharing knowledge with the community.
+            </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="index.html#blog" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i> Back to All Posts
+            </a>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span class="year">2025</span> Ravindra Saragadam. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
