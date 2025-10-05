@@ -67,7 +67,7 @@ const experiences = [
     {
         company: '6sense',
         role: 'Data Engineer',
-        duration: 'January 2022 - April 2025',
+        duration: 'January 2022 - March 2025',
         location: 'Bengaluru, Karnataka, India',
         description: [
             'Built reliable data pipelines processing 10M+ updates per day, with checks for accuracy and data quality',
@@ -95,7 +95,7 @@ const experiences = [
     {
         company: 'Fractal Analytics',
         role: 'Data Engineer',
-        duration: 'November 2020 - May 2021',
+        duration: 'October 2020 - May 2021',
         location: 'Bengaluru, Karnataka, India',
         description: [
             'Promoted to Data Engineer for exceptional performance and technical leadership',
@@ -110,7 +110,7 @@ const experiences = [
     {
         company: 'Fractal Analytics',
         role: 'Associate Engineer',
-        duration: 'August 2019 - November 2020',
+        duration: 'August 2019 - October 2020',
         location: 'Bengaluru, Karnataka, India',
         description: [
             'Designed data consolidation tool for UK and Russia Markets saving 500 human hours annually',
