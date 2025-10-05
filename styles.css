@@ -91,7 +91,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-brand a {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: var(--primary-color);
     text-decoration: none;
@@ -526,8 +526,9 @@ h1, h2, h3, h4, h5, h6 {
 /* Timeline */
 .timeline {
     position: relative;
-    max-width: 1000px;
-    margin: 3rem auto;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 0;
 }
 
 .timeline::before {
@@ -535,25 +536,36 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 2px;
+    width: 3px;
     height: 100%;
     background: linear-gradient(180deg, var(--secondary-color), var(--accent-color));
+    border-radius: 2px;
 }
 
 .timeline-item {
     margin-bottom: 3rem;
     position: relative;
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 1 !important;
+    transform: translateY(0) !important;
     transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.timeline-item.visible {
-    opacity: 1;
-    transform: translateY(0);
+/* Timeline positioning by company - Dynamic */
+.timeline-left .timeline-content {
+    margin-left: 50% !important;
+    margin-right: 0 !important;
+    padding-left: 3rem !important;
+    padding-right: 1.5rem !important;
 }
 
-/* Custom timeline positioning for Fractal Analytics */
+.timeline-right .timeline-content {
+    margin-left: 0 !important;
+    margin-right: 50% !important;
+    padding-left: 1.5rem !important;
+    padding-right: 3rem !important;
+}
+
+/* Legacy hardcoded rules - can be removed */
 .timeline-item:nth-child(3) .timeline-content,
 .timeline-item:nth-child(4) .timeline-content {
     margin-left: 50%;
@@ -1142,14 +1154,12 @@ h1, h2, h3, h4, h5, h6 {
         left: 0;
     }
 
-    .timeline-item:nth-child(3) .timeline-content,
-    .timeline-item:nth-child(4) .timeline-content,
-    .timeline-item:nth-child(odd):not(:nth-child(3)):not(:nth-child(4)) .timeline-content,
-    .timeline-item:nth-child(even):not(:nth-child(3)):not(:nth-child(4)) .timeline-content {
-        margin-left: 0;
-        margin-right: 0;
-        padding-left: 3rem;
-        padding-right: 1.5rem;
+    .timeline-left .timeline-content,
+    .timeline-right .timeline-content {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 3rem !important;
+        padding-right: 1.5rem !important;
     }
 
     .timeline-marker {

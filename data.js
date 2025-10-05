@@ -52,16 +52,31 @@ Currently at 6sense, building data infrastructure for predictive B2B intelligenc
 const experiences = [
     {
         company: '6sense',
-        role: 'Data Engineer',
-        duration: 'January 2022 - Present',
+        role: 'Senior Data Engineer',
+        duration: 'April 2025 - Present',
         location: 'Bengaluru, Karnataka, India',
         description: [
-            'Building and optimizing large-scale data pipelines for B2B intelligence platform',
-            'Migrated from Spark batch processing to Apache Flink for real-time streaming, enabling sub-second latency',
-            'Developed data infrastructure supporting predictive analytics for Fortune 500 enterprise clients',
-            'Optimized query performance reducing latency by 60% through intelligent caching and indexing'
+            'Migrated from batch (Spark) to real-time streaming (Flink), cutting latency to sub-second',
+            'Led improvements in data quality and SLA adherence across key systems',
+            'Optimized Spark configurations to keep large-scale data processing stable and efficient',
+            'Mentored junior engineers and shared architectural best practices across the team',
+            'Took ownership of support workflows and incident resolution for data pipelines'
         ],
-        technologies: ['Apache Spark', 'Flink', 'AWS', 'Python', 'Elasticsearch', 'SQL']
+        technologies: ['Apache Spark', 'Flink', 'AWS', 'SingleStore', 'Python', 'Kubernetes', 'SQL']
+    },
+    {
+        company: '6sense',
+        role: 'Data Engineer',
+        duration: 'January 2022 - April 2025',
+        location: 'Bengaluru, Karnataka, India',
+        description: [
+            'Built reliable data pipelines processing 10M+ updates per day, with checks for accuracy and data quality',
+            'Improved query performance by 60% using smarter caching and indexing',
+            'Maintained indexing pipelines for global search features, balancing speed and consistency',
+            'Set up GDPR-compliant email notification system reaching 200K+ users daily, with throttling in place',
+            'Tuned Spark jobs and queries to improve performance and reduce system load'
+        ],
+        technologies: ['Apache Spark', 'AWS', 'Python', 'Elasticsearch', 'SQL']
     },
     {
         company: 'Flipkart',
@@ -134,7 +149,7 @@ const expertise = [
         icon: 'fas fa-database',
         title: 'Big Data Frameworks',
         description: 'Distributed computing with Spark, Hadoop ecosystem, and large-scale data processing',
-        tags: ['Apache Spark', 'PySpark', 'Hadoop', 'Hive', 'Presto']
+        tags: ['Apache Spark', 'Trino', 'Hadoop', 'Hive', 'Presto']
     },
     {
         icon: 'fas fa-cloud',
@@ -144,7 +159,7 @@ const expertise = [
     },
     {
         icon: 'fas fa-code',
-        title: 'Programming Languages',
+        title: 'Languages',
         description: 'Production-grade code in Python, SQL, and Shell scripting for automation',
         tags: ['Python', 'SQL', 'Bash', 'Scala']
     },
@@ -213,6 +228,14 @@ const projects = [
 // Blog Posts Data
 const blogPosts = [
     {
+        title: 'From Spark Batch to Flink Streaming: A Migration Story',
+        date: 'January 20, 2025',
+        excerpt: 'We migrated from Spark batch processing to Apache Flink streaming at 6sense. Here\'s why we made the switch and how we now process 50K+ events/second with sub-second latency.',
+        tags: ['Flink', 'Spark', 'Streaming'],
+        link: 'blog/blog-flink-vs-spark.html',
+        comingSoon: false
+    },
+    {
         title: 'Building Scalable Data Pipelines: Lessons from the Trenches',
         date: 'March 15, 2024',
         excerpt: 'Six years in data engineering taught me that the best pipeline is the one that doesn\'t wake you up at 3 AM. Here\'s what actually works in production.',
@@ -226,14 +249,6 @@ const blogPosts = [
         excerpt: 'In the real world, a working solution today beats a perfect solution next quarter. Here\'s why pragmatism wins in data engineering.',
         tags: ['Philosophy', 'Career', 'Engineering'],
         link: 'blog/blog-practical-over-perfect.html',
-        comingSoon: false
-    },
-    {
-        title: 'From Spark Batch to Flink Streaming: A Migration Story',
-        date: 'January 20, 2025',
-        excerpt: 'We migrated from Spark batch processing to Apache Flink streaming at 6sense. Here\'s why we made the switch and how we now process 50K+ events/second with sub-second latency.',
-        tags: ['Flink', 'Spark', 'Streaming'],
-        link: 'blog/blog-flink-vs-spark.html',
         comingSoon: false
     },
     {

@@ -55,15 +55,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Navbar scroll effect
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
+    // Scroll-based header text change
+    const navBrandText = document.getElementById('navBrandText');
+    const aboutSection = document.getElementById('about');
+
+    function updateNavBrand() {
+        const aboutTop = aboutSection.offsetTop - 100; // Trigger 100px before About section
+
+        if (window.scrollY >= aboutTop) {
+            navBrandText.innerHTML = 'Ravindra Saragadam';
         } else {
-            navbar.classList.remove('scrolled');
+            navBrandText.innerHTML = 'RS';
         }
-    });
+    }
+
+    window.addEventListener('scroll', updateNavBrand);
+    updateNavBrand(); // Set initial state
 
     // Active navigation link based on scroll position
     const sections = document.querySelectorAll('section');
@@ -315,14 +322,48 @@ function loadExpertise() {
 
 // Load experience timeline
 function loadExperience() {
+    console.log('loadExperience called');
+
     const timeline = document.getElementById('timeline');
+    if (!timeline) {
+        console.error('Timeline element not found!');
+        return;
+    }
+
+    if (!experiences || experiences.length === 0) {
+        console.error('No experiences data found!');
+        return;
+    }
+
+    console.log(`Processing ${experiences.length} experiences`);
+
+    // Get unique companies in order of appearance and assign alternating sides
+    const uniqueCompanies = [];
+    const companySides = {};
+
+    experiences.forEach(exp => {
+        if (!uniqueCompanies.includes(exp.company)) {
+            uniqueCompanies.push(exp.company);
+        }
+    });
+
+    // Assign sides: even indices = left, odd indices = right
+    uniqueCompanies.forEach((company, index) => {
+        companySides[company] = index % 2 === 0 ? 'left' : 'right';
+    });
+
+    console.log('Company side assignments:', companySides);
+
     experiences.forEach((exp, index) => {
+        const side = companySides[exp.company];
+        console.log(`Creating item ${index + 1} for ${exp.company} on ${side} side`);
+
         const timelineItem = document.createElement('div');
-        timelineItem.className = 'timeline-item';
-        
-        const techTags = exp.technologies.map(tech => `<span class="tag">${tech}</span>`).join('');
-        const descriptions = exp.description.map(desc => `<li>${desc}</li>`).join('');
-        
+        timelineItem.className = `timeline-item timeline-${side}`;
+
+        const techTags = exp.technologies ? exp.technologies.map(tech => `<span class="tag">${tech}</span>`).join('') : '';
+        const descriptions = exp.description ? exp.description.map(desc => `<li>${desc}</li>`).join('') : '';
+
         timelineItem.innerHTML = `
             <div class="timeline-marker"></div>
             <div class="timeline-content">
@@ -340,8 +381,11 @@ function loadExperience() {
                 </div>
             </div>
         `;
+
         timeline.appendChild(timelineItem);
     });
+
+    console.log(`Timeline now has ${timeline.children.length} items`);
 }
 
 // Load projects
