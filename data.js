@@ -18,10 +18,10 @@ I question everything. Not to be difficult, but because "we've always done it th
 Currently at 6sense, building data infrastructure for predictive B2B intelligence. Previously helped Flipkart prepare for their IPO with financial data systems, and architected multi-terabyte solutions at Fractal Analytics. Each experience taught me that simple, maintainable solutions beat complex, fragile ones every time.`,
 
     highlights: [
-        { label: 'Years Experience', value: '6+' },
+        { label: 'Years Experience', value: String(new Date().getFullYear() - 2018)+'+' },
         { label: 'Projects Delivered', value: '15+' },
-        { label: 'Data Processed', value: '2TB+/day' },
-        { label: 'Cloud Cost Saved', value: '$15K/mo' }
+        { label: 'Data Processed', value: '5TB+/day' },
+        { label: 'Cloud Cost Saved', value: '$15K/m' }
     ],
 
     strengths: [
